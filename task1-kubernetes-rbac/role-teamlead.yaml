@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: development
+  name: teamlead-read-only
+rules:
+- apiGroups: [""]  # core API group, includes pods, services, configmaps, PVCs
+  resources: ["pods", "services", "configmaps", "persistentvolumeclaims"]
+  verbs: ["get", "list", "watch"]
+# including resources from the "apps" API group to allow read-only access to workloads like deployments, replicasets, and statefulsets
+- apiGroups: ["apps"] 
+  resources: ["deployments", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["networking.k8s.io"]  # read-only access to network policies
+  resources: ["networkpolicies"]
+  verbs: ["get", "list", "watch"]
