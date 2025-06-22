@@ -1,0 +1,9 @@
+variable "instance_name" {}
+variable "instance_type" {}
+variable "ebs_volume_size" {}
+variable "allocate_eip" {}
+variable "ssh_whitelist_cidrs" {}
+variable "ami_id" {}
+variable "subnet_id" {}
+variable "vpc_id" {}
+variable "key_name" {}

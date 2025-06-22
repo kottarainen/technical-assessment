@@ -1,0 +1,9 @@
+instance_name         = "prod-instance"
+instance_type         = "t3.medium"
+ebs_volume_size       = 50
+allocate_eip          = true
+ssh_whitelist_cidrs   = ["192.0.2.15/32"]
+ami_id                = "ami-34567890"
+subnet_id             = "subnet-ccc333"
+vpc_id                = "vpc-ccc333"
+key_name              = "prod-key"

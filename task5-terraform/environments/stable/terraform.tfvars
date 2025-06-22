@@ -1,0 +1,9 @@
+instance_name         = "stable-instance"
+instance_type         = "t3.small"
+ebs_volume_size       = 20
+allocate_eip          = true
+ssh_whitelist_cidrs   = ["198.51.100.5/32"]
+ami_id                = "ami-23456789"
+subnet_id             = "subnet-bbb222"
+vpc_id                = "vpc-bbb222"
+key_name              = "stable-key"

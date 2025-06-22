@@ -1,0 +1,9 @@
+instance_name         = "edge-instance"
+instance_type         = "t3.micro"
+ebs_volume_size       = 10
+allocate_eip          = true
+ssh_whitelist_cidrs   = ["203.0.113.10/32"]
+ami_id                = "ami-12345678"           # replace with valid AMI
+subnet_id             = "subnet-aaa111"
+vpc_id                = "vpc-aaa111"
+key_name              = "edge-key"
