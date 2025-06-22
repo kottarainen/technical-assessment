@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: database-ingress-policy
+  namespace: backend
+spec:
+  podSelector:
+    matchLabels:
+      app: database
+      env: prod
+  policyTypes:
+    - Ingress
+  ingress:
+    # allow ingress to database pods from backend pods with `app: backend` and `env: prod` on port 5432
+    # allow traffic from specific pods.
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
+              env: prod
+      ports:
+        - protocol: TCP
+          port: 5432
