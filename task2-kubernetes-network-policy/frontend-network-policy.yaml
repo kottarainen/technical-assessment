@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-from-frontend
+  namespace: frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+      env: prod
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: backend
+          podSelector:
+            matchLabels:
+              app: backend
+              env: prod
+      ports:
+        - protocol: TCP
+          port: 8080
+    # allow egress traffic to the monitoring namespace
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: monitoring
+        - protocol: TCP
+          port: 9020
+          port: 9020
