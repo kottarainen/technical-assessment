@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: backend-traffic-policy
+  namespace: backend
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+      env: prod
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # allow ingress to backend app from frontend on port 8080
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: frontend
+          podSelector:
+            matchLabels:
+              app: frontend
+              env: prod
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    # allow egress from backend pods to database pods on port 5432
+    - to:
+        - podSelector:
+            matchLabels:
+              app: database
+              env: prod
+      ports:
+        - protocol: TCP
+          port: 5432
+    # allow egress to monitoring namespace for metrics collection
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: monitoring
+          podSelector:
+            matchLabels:
+              app: monitoring-app
+      ports:
+        - protocol: TCP
+          port: 9020
