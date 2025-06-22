@@ -16,6 +16,11 @@ resource "aws_security_group" "ssh_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = merge({
+    Name = "${var.instance_name}-sg"
+  }, var.tags)
+
 }
 
 resource "aws_instance" "this" {
@@ -24,14 +29,15 @@ resource "aws_instance" "this" {
   key_name               = var.key_name
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [aws_security_group.ssh_sg.id]
-  tags = {
+  tags = merge({
     Name = var.instance_name
-  }
+  }, var.tags)
 
   root_block_device {
     volume_size = var.ebs_volume_size
     volume_type = "gp3"
   }
+  
 }
 
 resource "aws_eip" "this" {

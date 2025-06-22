@@ -13,5 +13,9 @@ module "ec2_instance" {
   subnet_id           = var.subnet_id
   vpc_id              = var.vpc_id
   key_name            = var.key_name
+  tags = {
+    Environment = "production"
+    Owner       = "DevOps"
+    Project     = "EC2Provisioning" }
 }
 
