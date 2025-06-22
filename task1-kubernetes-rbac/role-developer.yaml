@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: development
+  name: developer-dev1-full-access
+rules:
+- apiGroups: [""]  # core resource: services
+  resources: ["services"]
+  resourceNames: ["dev1-service"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]  # workloads from apps API group (only deployments are included)
+  resources: ["deployments"]
+  resourceNames: ["dev1-deployment"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
